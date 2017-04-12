@@ -25,6 +25,7 @@ public class TelaExecucao extends javax.swing.JFrame {
     boolean bProgramaInvalido;
     boolean bPrimeiroStep;
     boolean bStop;
+
     /**
      * Creates new form TelaExecucao
      */
@@ -36,12 +37,12 @@ public class TelaExecucao extends javax.swing.JFrame {
         mvm = new MVM(this);
         mem = new short[1025];
         arrayInstrucoesExecucao = new ArrayList<String>();
-        
+
         scrollPaneCodigo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPaneCodigo.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         textAreaCodigo.setBorder(new NumberedBorder());
         scrollPaneCodigo.setViewportView(textAreaCodigo);
-        
+
         this.setLocationByPlatform(true);
         this.setTitle("MVM");
     }
@@ -90,6 +91,7 @@ public class TelaExecucao extends javax.swing.JFrame {
 
         btnStep.setText("Step");
         btnStep.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStepActionPerformed(evt);
             }
@@ -97,6 +99,7 @@ public class TelaExecucao extends javax.swing.JFrame {
 
         btnRun.setText("Run");
         btnRun.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRunActionPerformed(evt);
             }
@@ -150,136 +153,62 @@ public class TelaExecucao extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(scrollPaneCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                                .addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(edtBX))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(edtCX))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(edtSP))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel5)
-                                                .addComponent(jLabel6))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(edtIP)
-                                                .addComponent(edtBP))))
-                                    .addComponent(jLabel7))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnStep)
-                    .addComponent(btnRun))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(edtBX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(edtCX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(edtSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(edtBP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(edtIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrollPaneCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup().addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane1).addComponent(jScrollPane2)
+        .addGroup(layout.createSequentialGroup()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false).addComponent(scrollPaneCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup().addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE).addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+        .addGroup(layout.createSequentialGroup()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false).addGroup(layout.createSequentialGroup().addComponent(jLabel2).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtBX)).addGroup(layout.createSequentialGroup().addComponent(jLabel3).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtCX))
+        .addGroup(layout.createSequentialGroup().addComponent(jLabel4).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtSP)).addGroup(layout.createSequentialGroup().addComponent(jLabel1).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jLabel5).addComponent(jLabel6)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(edtIP).addComponent(edtBP)))).addComponent(jLabel7)).addGap(0, 0,
+        Short.MAX_VALUE)))).addGroup(layout.createSequentialGroup().addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup().addGap(12, 12, 12).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1).addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel2).addComponent(edtBX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel3).addComponent(edtCX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel4).addComponent(edtSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel5).addComponent(edtBP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel6).addComponent(edtIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jLabel7)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)).addComponent(scrollPaneCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(8, 8, 8)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel8).addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStepActionPerformed
+    private void btnStepActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnStepActionPerformed
         short shPosicao = 0;
-        if(bPrimeiroStep){ //só chama o codificador na primeira chamada do botao, é zera o ip
-            btnRun.setEnabled(false); //nao da Run enquanto estiver no Step
+        if (bPrimeiroStep) { // só chama o codificador na primeira chamada do botao, é zera o ip
+            btnRun.setEnabled(false); // nao da Run enquanto estiver no Step
             LimpaCampos();
             mvm.zeraRegs();
-            mvm.iPosicaoInstrucoes = 0; //para poder dar um run depois do step, para serem coisas separadas
-            
-            String sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);  
-            if(sPosicao == null || sPosicao.equals(""))
+            mvm.iPosicaoInstrucoes = 0; // para poder dar um run depois do step, para serem coisas separadas
+
+            String sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga:");
+            if (sPosicao == null || sPosicao.equals(""))
                 return;
-            while(VerificaEnderecoDeCarga(sPosicao) == false){
+            while (VerificaEnderecoDeCarga(sPosicao) == false) {
                 JOptionPane.showMessageDialog(this, "Entrada de dados inválida");
-                sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);  
-                if(sPosicao == null || sPosicao.equals(""))
+                sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);
+                if (sPosicao == null || sPosicao.equals(""))
                     return;
             }
-                
+
             int iPosicao = Integer.parseInt(sPosicao);
-            if(iPosicao < 1025)
-                shPosicao = (short)iPosicao;
-            else{
+            if (iPosicao < 1025)
+                shPosicao = (short) iPosicao;
+            else {
                 JOptionPane.showMessageDialog(this, "Endereço de carga muito elevado.");
                 return;
             }
-                
+
             try {
                 mvm.codificador(mem, shPosicao, arrayInstrucoesExecucao);
             } catch (IOException ex) {
@@ -288,87 +217,84 @@ public class TelaExecucao extends javax.swing.JFrame {
             bPrimeiroStep = false;
             mvm.ip = 0;
         }
-        
-        if(!(mvm.iPosicaoInstrucoes >= arrayInstrucoesExecucao.size()))
-        {
-            if(!bProgramaInvalido){
-                bStop = true; //a MVM verifica essa variavel, se for true ela sai do codificador, mas salva as variaveis
+
+        if (!(mvm.iPosicaoInstrucoes >= arrayInstrucoesExecucao.size())) {
+            if (!bProgramaInvalido) {
+                bStop = true; // a MVM verifica essa variavel, se for true ela sai do codificador, mas salva as variaveis
                 mvm.decodificador(mem, 0, shPosicao, arrayInstrucoesExecucao);
-            }
-            else{
+            } else {
                 bPrimeiroStep = true;
                 btnRun.setEnabled(true);
             }
-        }
-        else{
+        } else {
             LimpaCampos();
             btnRun.setEnabled(true);
             bPrimeiroStep = true;
             mvm.zeraRegs();
         }
-    }//GEN-LAST:event_btnStepActionPerformed
+    }// GEN-LAST:event_btnStepActionPerformed
 
-    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
         // TODO add your handling code here:
         short[] memLocal = new short[1025];
         System.arraycopy(mem, 0, memLocal, 0, memLocal.length); // para nao alterar a mem principal, para poder rodar de novo
         mvm.zeraRegs();
         LimpaCampos();
-        
+
         short shPosicao = 0;
-        
-        String sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);  
-        if(sPosicao == null || sPosicao.equals(""))
+
+        String sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);
+        if (sPosicao == null || sPosicao.equals(""))
             return;
-        while(VerificaEnderecoDeCarga(sPosicao) == false){
+        while (VerificaEnderecoDeCarga(sPosicao) == false) {
             JOptionPane.showMessageDialog(this, "Entrada de dados inválida");
-            sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);  
-            if(sPosicao == null || sPosicao.equals(""))
+            sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);
+            if (sPosicao == null || sPosicao.equals(""))
                 return;
         }
 
         int iPosicao = Integer.parseInt(sPosicao);
-        if(iPosicao < 1025)
-            shPosicao = (short)iPosicao;
-        else{
+        if (iPosicao < 1025)
+            shPosicao = (short) iPosicao;
+        else {
             JOptionPane.showMessageDialog(this, "Endereço de carga muito elevado.");
             return;
         }
-        
+
         try {
             mvm.codificador(memLocal, shPosicao, arrayInstrucoesExecucao);
         } catch (IOException ex) {
             Logger.getLogger(TelaExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(!bProgramaInvalido){
+
+        if (!bProgramaInvalido) {
             bStop = false;
             mvm.decodificador(memLocal, 0, shPosicao, arrayInstrucoesExecucao);
         }
-       
-    }//GEN-LAST:event_btnRunActionPerformed
 
-    private boolean VerificaEnderecoDeCarga(String sEntrada){
-        if(sEntrada.length() > 4)
+    }// GEN-LAST:event_btnRunActionPerformed
+
+    private boolean VerificaEnderecoDeCarga(String sEntrada) {
+        if (sEntrada.length() > 4)
             return false;
-        
+
         for (int i = 0; i < sEntrada.length(); i++) {
-            if(sEntrada.charAt(i) < '0' || sEntrada.charAt(i) > '9')
+            if (sEntrada.charAt(i) < '0' || sEntrada.charAt(i) > '9')
                 return false;
         }
-        
+
         return true;
     }
-    
-    public void PreenchePilha(int sp, short shMem){
-        textAreaStack.append(sp+" - "+shMem+"\n");
+
+    public void PreenchePilha(int sp, short shMem) {
+        textAreaStack.append(sp + " - " + shMem + "\n");
     }
-    
-    public void LimpaPilha(){
+
+    public void LimpaPilha() {
         textAreaStack.setText("");
     }
-    
-    public void LimpaCampos(){
+
+    public void LimpaCampos() {
         setEdtLinhaExecucao("");
         setTextLog("");
         setTextSaida("");
@@ -380,40 +306,40 @@ public class TelaExecucao extends javax.swing.JFrame {
         edtBP.setText("");
         edtIP.setText("");
     }
-    
-    public void setaArray(ArrayList<String> arrayInstructions){
-        if(arrayInstructions != null){
+
+    public void setaArray(ArrayList<String> arrayInstructions) {
+        if (arrayInstructions != null) {
             arrayInstrucoesExecucao = arrayInstructions;
             preencheTextArea();
         }
     }
 
-    void preencheTextArea(){
-        for(String s : arrayInstrucoesExecucao){
-            if(textAreaCodigo.getText().equals(""))
+    void preencheTextArea() {
+        for (String s : arrayInstrucoesExecucao) {
+            if (textAreaCodigo.getText().equals(""))
                 textAreaCodigo.append(s);
             else
-                textAreaCodigo.append("\n"+s);
+                textAreaCodigo.append("\n" + s);
         }
     }
-    
-    void setEdtLinhaExecucao(String sLinha){
+
+    void setEdtLinhaExecucao(String sLinha) {
         edtLinhaExecucao.setText(sLinha);
     }
-    
-    void setTextSaida(String sText){
+
+    void setTextSaida(String sText) {
         textAreaSaida.setText(sText);
     }
-    
-    void setTextLog(String sLog){
+
+    void setTextLog(String sLog) {
         textAreaLog.setText(sLog);
     }
-    
-    void appendLog(String sLog){
-        textAreaLog.append(sLog+"\n");
+
+    void appendLog(String sLog) {
+        textAreaLog.append(sLog + "\n");
     }
-    
-    void setRegistradores(int ax, int bx, int cx, int sp, int bp, int ip){
+
+    void setRegistradores(int ax, int bx, int cx, int sp, int bp, int ip) {
         edtAX.setText(String.valueOf(ax));
         edtBX.setText(String.valueOf(bx));
         edtCX.setText(String.valueOf(cx));
@@ -421,14 +347,16 @@ public class TelaExecucao extends javax.swing.JFrame {
         edtBP.setText(String.valueOf(bp));
         edtIP.setText(String.valueOf(ip));
     }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -446,10 +374,11 @@ public class TelaExecucao extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaExecucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TelaExecucao().setVisible(true);
             }
