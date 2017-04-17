@@ -15,28 +15,32 @@ import javax.swing.JOptionPane;
  */
 public class MVM {
 
-    private static TelaExecucao tela;
-    public static int botao = 0;
-    static int ax = 0, bx = 0, cx = 0, bp = 0, sp = 0, ip, ri;
-    static int iPosicaoInstrucoes = 0; //para pegar do arraylist a instruçao que esta sendo executada
-    static int iValorInicialPilha = -1;
-    
-    public MVM(TelaExecucao telaExecucao){
-        tela = telaExecucao;
-    }
-    
-    public static void zeraRegs(){
-        ax = 0; 
-        bx = 0; 
-        cx = 0;
-        bp = 0; 
-        sp = 0;
-        ip = 0; 
-        ri = 0;
-        iPosicaoInstrucoes = 0;
-    }
-    
-    public static void decodificador(short mem[], int programa, int aux, ArrayList<String> arrayInstrucoes) {
+	private static TelaExecucao tela;
+	public static int botao = 0;
+	static int ax = 0, bx = 0, cx = 0, bp = 0, sp = 0, ip, ri;
+	static int iPosicaoInstrucoes = 0; // para pegar do arraylist a instruçao
+										// que esta sendo executada
+
+	public static Graphics graphics;
+	static int iValorInicialPilha = -1;
+
+	public MVM(TelaExecucao telaExecucao) {
+		tela = telaExecucao;
+		graphics = new Graphics();
+	}
+
+	public static void zeraRegs() {
+		ax = 0;
+		bx = 0;
+		cx = 0;
+		bp = 0;
+		sp = 0;
+		ip = 0;
+		ri = 0;
+		iPosicaoInstrucoes = 0;
+	}
+
+	public static void decodificador(short mem[], int programa, int aux, ArrayList<String> arrayInstrucoes) {
         boolean repetir = true;
         ip = ip + aux; //ganha ele mesmo +1 para salvar quando dar step
         aux = 0;
@@ -451,7 +455,23 @@ public class MVM {
                     tela.appendLog(ip+" - Executou sub bx,ax");
                     bx = bx - ax;
                     break;
-                    
+                case 54: //sint software interruption
+                	tela.appendLog(ip+" - Executou sint");
+                	while(graphics.getCurrentMode() == GraphicMode.READ_MODE) { //wait while the display is reading data
+                		
+                	}
+                	short[] data = new short[56];
+                	
+                	int count = 0;
+                	
+                	for(int i = 200; i < 256; i++) {
+                		data[count] = mem[i];
+                	}
+                	
+                	graphics.setDataStartinOnAddress(sp, data);
+                	
+                	
+                	break;
                 default: {
                     repetir = false;
                     tela.appendLog("Saiu.");
@@ -490,297 +510,268 @@ public class MVM {
         
         tela.setTextSaida("AX = "+ax);
     }
-    
-    //        Path pathArquivo = Paths.get(sArquivo);
-//        BufferedReader ler = new BufferedReader(new FileReader(pathArquivo.toFile()));
-//        LineNumberReader lnr = new LineNumberReader(new FileReader(pathArquivo.toFile()));
-//        lnr.skip(Long.MAX_VALUE);
-//        int f = lnr.getLineNumber()+1;
-//        if (Files.exists(pathArquivo)){
 
-    public static void codificador(short mem[], /*String sArquivo,*/ short shPosicao, ArrayList<String> arrayInstrucoes) throws FileNotFoundException, IOException {
-        String sConteudo = "";
-        short iMem = shPosicao;
-        int iPosConteudo = 0;
-        
-        for(String sInstrucao : arrayInstrucoes) {
-            //System.out.println(iMem);
-            if(iMem + 2 >= mem.length){ AvisoLimiteArray(); break;}
+	// Path pathArquivo = Paths.get(sArquivo);
+	// BufferedReader ler = new BufferedReader(new
+	// FileReader(pathArquivo.toFile()));
+	// LineNumberReader lnr = new LineNumberReader(new
+	// FileReader(pathArquivo.toFile()));
+	// lnr.skip(Long.MAX_VALUE);
+	// int f = lnr.getLineNumber()+1;
+	// if (Files.exists(pathArquivo)){
 
-            //String sLinha = ler.readLine();
-            if(sInstrucao == null){
-                continue;
-            }
-            sConteudo = sInstrucao.replaceAll(" ", "");
+	public static void codificador(short mem[], /* String sArquivo, */ short shPosicao,
+			ArrayList<String> arrayInstrucoes) throws FileNotFoundException, IOException {
+		String sConteudo = "";
+		short iMem = shPosicao;
+		int iPosConteudo = 0;
 
-            int ri = 0;
-            if (sConteudo.equals("initax")){// "init ax"
-                mem[iMem++] = 0;
-            }
-            else if(sConteudo.equals("moveax,bx")){// "move ax,bx"
-                mem[iMem++] = 1;
-            }
-            else if(sConteudo.equals("moveax,cx")){// "move ax,cx",
-                mem[iMem++] = 2;
-            }
-            else if(sConteudo.equals("movebx,ax")){// "move bx,ax"
-                mem[iMem++] = 3;
-            }
-            else if(sConteudo.equals("movecx,ax")){// "move cx,ax"
-                mem[iMem++] = 4;
-            }
-            else if(sConteudo.contains("moveax,[") 
-                    && !sConteudo.contains("moveax,[b")){// "move ax,[",
-                mem[iMem++] = 5;
-                iPosConteudo = 8;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("moveax,[bx+")){
-                mem[iMem++] = 6;
-                iPosConteudo = 10;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("moveax,[bp-")){
-                mem[iMem++] = 7;
-                iPosConteudo = 11;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("moveax,[bp+")){
-                mem[iMem++] = 8;
-                iPosConteudo = 10;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("move[") && sConteudo.contains("],ax") 
-                    && !sConteudo.contains("bx") && !sConteudo.contains("bp")){
-                mem[iMem++] = 9;
-                iPosConteudo = 5;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("move[bx+") && sConteudo.contains(",ax")){
-                mem[iMem++] = 10;
-                iPosConteudo = 8;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.equals("movebp,sp")){ //"move bp,sp"
-                mem[iMem++] = 11;
-            }
-            else if(sConteudo.equals("movesp,bp")){ //"move sp,bp"
-                mem[iMem++] = 12;
-            }
-            else if(sConteudo.equals("addax,bx")){ //"add ax,bx"
-                mem[iMem++] = 13;
-            }
-            else if(sConteudo.equals("addax,cx")){ //"add ax,cx"
-                mem[iMem++] = 14;
-            }
-            else if(sConteudo.equals("addbx,cx")){ //"add bx,cx"
-                mem[iMem++] = 15;
-            }
-            else if(sConteudo.equals("subax,bx")){ //"sub ax,bx"
-                mem[iMem++] = 16;
-            }             
-            else if(sConteudo.equals("subax,cx")){ //"sub ax,cx"
-                mem[iMem++] = 17;
-            }
-            else if(sConteudo.equals("subbx,cx")){ //"sub bx,cx"
-                mem[iMem++] = 18;
-            }
-            else if(sConteudo.equals("incax")){ //"inc ax"
-                mem[iMem++] = 19;
-            }
-            else if(sConteudo.equals("incbx")){ //"inc bx"
-                mem[iMem++] = 20;
-            }
-            else if(sConteudo.equals("inccx")){ //"inc cx"
-                mem[iMem++] = 21;
-            }
-            else if(sConteudo.equals("decax")){ //"dec ax"
-                mem[iMem++] = 22;
-            }
-            else if(sConteudo.equals("decbx")){ //"dec bx"
-                mem[iMem++] = 23;
-            }
-            else if(sConteudo.equals("deccx")){ //"dec cx"
-                mem[iMem++] = 24;
-            }
-            else if(sConteudo.contains("testax0,")){
-                mem[iMem++] = 25;
-                iPosConteudo = 8;
-                int iPosFinal = sConteudo.length();
-                String sAux = "";
-                while(iPosConteudo < iPosFinal){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("jmp")){
-                mem[iMem++] = 26;
-                iPosConteudo = 3;
-                int iPosFinal = sConteudo.length();
-                String sAux = "";
-                while(iPosConteudo < iPosFinal){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("call")){
-                mem[iMem++] = 27;
-                iPosConteudo = 4;
-                int iPosFinal = sConteudo.length();
-                String sAux = "";
-                while(iPosConteudo < iPosFinal){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.equals("ret")){ //"ret"
-                mem[iMem++] = 28;
-            }
-            else if(sConteudo.equals("inax")){ //"in ax"
-                mem[iMem++] = 29;
-            }
-            else if(sConteudo.equals("outax")){ //"out ax"
-                mem[iMem++] = 30;
-            }
-            else if(sConteudo.equals("pushax")){ //"push ax"
-                mem[iMem++] = 31;
-            }
-            else if(sConteudo.equals("pushbx")){ //"push bx"
-                mem[iMem++] = 32;
-            }
-            else if(sConteudo.equals("pushcx")){ //"push cx"
-                mem[iMem++] = 33;
-            }
-            else if(sConteudo.equals("pushbp")){ //"push bp"
-                mem[iMem++] = 34;
-            }
-            else if(sConteudo.equals("popbp")){ //"pop bp"
-                mem[iMem++] = 35;
-            }
-            else if(sConteudo.equals("popcx")){ //"pop cx"
-                mem[iMem++] = 36;
-            }
-            else if(sConteudo.equals("popbx")){ //"pop bx"
-                mem[iMem++] = 37;
-            }
-            else if(sConteudo.equals("popax")){ //"pop ax"
-                mem[iMem++] = 38;
-            }
-            else if(sConteudo.equals("nop")){ //"nop"
-                mem[iMem++] = 39;
-            }
-            else if(sConteudo.equals("halt")){ //"halt"
-                mem[iMem++] = 40;
-            }
-            else if(sConteudo.equals("decsp")){ //"dec sp"
-                mem[iMem++] = 41;
-            }
-            else if(sConteudo.contains("move[bp-") && sConteudo.contains(",ax")){ //"move [bp-"
-                mem[iMem++] = 42;
-                iPosConteudo = 8;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                        sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("move[bp+") && sConteudo.contains(",ax")){
-                mem[iMem++] = 43;
-                iPosConteudo = 8;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != ']'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.contains("moveax,{")){
-                mem[iMem++] = 44;
-                iPosConteudo = 8;
-                String sAux = "";
-                while(sConteudo.charAt(iPosConteudo) != '}'){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = Short.parseShort(sAux);
-            }
-            else if(sConteudo.contains("testaxEqbx,")){
-                mem[iMem++] = 45;
-                iPosConteudo = 11;
-                int iPosFinal = sConteudo.length();
-                String sAux = "";
-                while(iPosConteudo < iPosFinal){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-            }
-            else if(sConteudo.equals("incsp")){ //"inc sp"
-                mem[iMem++] = 46;
-            }
-            else if(sConteudo.equals("moveax,sp")){ //"move ax,sp"
-                mem[iMem++] = 47;
-            }
-            else if(sConteudo.equals("movesp,ax")){ //"move sp,ax"
-                mem[iMem++] = 48;
-            }
-            else if(sConteudo.equals("moveax,bp")){ //"move ax,bp"
-                mem[iMem++] = 49;
-            }
-            else if(sConteudo.equals("movebp,ax")){ //"move bp,ax"
-                mem[iMem++] = 50;
-            }
-            else if(sConteudo.equals("iret")){ //"iret"
-                mem[iMem++] = 51;
-            }
-            else if(sConteudo.contains("int")){
-                mem[iMem++] = 52;
-                iPosConteudo = 3;
-                int iPosfinal = sConteudo.length();
-                String sAux = "";
-                while(iPosConteudo < iPosfinal){
-                    sAux += sConteudo.charAt(iPosConteudo++);
-                }
-                mem[iMem++] = Short.parseShort(sAux);
-            }
-            else if(sConteudo.equals("subbx,ax")){
-                mem[iMem++] = 53;
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Instrução inválida, será finalizada a ação.");
-                tela.setEdtLinhaExecucao("Instrução inválida.");
-                tela.setTextLog("Encontrou uma instrução inválida e parou.\n  ---> "+sConteudo);
-                tela.setTextSaida("Ax = "+ax);
-                tela.bProgramaInvalido = true;
-                break;
-            }
-        }
-    }
-    
-    private static void AvisoLimiteArray(){
-        MainMVM main = new MainMVM();
-        main.bLimiteArray = true;
-        JOptionPane.showMessageDialog(null, "Limite do array atingido, será finalizada a ação.");
-    }
+		for (String sInstrucao : arrayInstrucoes) {
+			// System.out.println(iMem);
+			if (iMem + 2 >= mem.length) {
+				AvisoLimiteArray();
+				break;
+			}
+
+			// String sLinha = ler.readLine();
+			if (sInstrucao == null) {
+				continue;
+			}
+			sConteudo = sInstrucao.replaceAll(" ", "");
+
+			int ri = 0;
+			if (sConteudo.equals("initax")) {// "init ax"
+				mem[iMem++] = 0;
+			} else if (sConteudo.equals("moveax,bx")) {// "move ax,bx"
+				mem[iMem++] = 1;
+			} else if (sConteudo.equals("moveax,cx")) {// "move ax,cx",
+				mem[iMem++] = 2;
+			} else if (sConteudo.equals("movebx,ax")) {// "move bx,ax"
+				mem[iMem++] = 3;
+			} else if (sConteudo.equals("movecx,ax")) {// "move cx,ax"
+				mem[iMem++] = 4;
+			} else if (sConteudo.contains("moveax,[") && !sConteudo.contains("moveax,[b")) {// "move
+																							// ax,[",
+				mem[iMem++] = 5;
+				iPosConteudo = 8;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("moveax,[bx+")) {
+				mem[iMem++] = 6;
+				iPosConteudo = 10;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("moveax,[bp-")) {
+				mem[iMem++] = 7;
+				iPosConteudo = 11;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("moveax,[bp+")) {
+				mem[iMem++] = 8;
+				iPosConteudo = 10;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("move[") && sConteudo.contains("],ax") && !sConteudo.contains("bx")
+					&& !sConteudo.contains("bp")) {
+				mem[iMem++] = 9;
+				iPosConteudo = 5;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("move[bx+") && sConteudo.contains(",ax")) {
+				mem[iMem++] = 10;
+				iPosConteudo = 8;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.equals("movebp,sp")) { // "move bp,sp"
+				mem[iMem++] = 11;
+			} else if (sConteudo.equals("movesp,bp")) { // "move sp,bp"
+				mem[iMem++] = 12;
+			} else if (sConteudo.equals("addax,bx")) { // "add ax,bx"
+				mem[iMem++] = 13;
+			} else if (sConteudo.equals("addax,cx")) { // "add ax,cx"
+				mem[iMem++] = 14;
+			} else if (sConteudo.equals("addbx,cx")) { // "add bx,cx"
+				mem[iMem++] = 15;
+			} else if (sConteudo.equals("subax,bx")) { // "sub ax,bx"
+				mem[iMem++] = 16;
+			} else if (sConteudo.equals("subax,cx")) { // "sub ax,cx"
+				mem[iMem++] = 17;
+			} else if (sConteudo.equals("subbx,cx")) { // "sub bx,cx"
+				mem[iMem++] = 18;
+			} else if (sConteudo.equals("incax")) { // "inc ax"
+				mem[iMem++] = 19;
+			} else if (sConteudo.equals("incbx")) { // "inc bx"
+				mem[iMem++] = 20;
+			} else if (sConteudo.equals("inccx")) { // "inc cx"
+				mem[iMem++] = 21;
+			} else if (sConteudo.equals("decax")) { // "dec ax"
+				mem[iMem++] = 22;
+			} else if (sConteudo.equals("decbx")) { // "dec bx"
+				mem[iMem++] = 23;
+			} else if (sConteudo.equals("deccx")) { // "dec cx"
+				mem[iMem++] = 24;
+			} else if (sConteudo.contains("testax0,")) {
+				mem[iMem++] = 25;
+				iPosConteudo = 8;
+				int iPosFinal = sConteudo.length();
+				String sAux = "";
+				while (iPosConteudo < iPosFinal) {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("jmp")) {
+				mem[iMem++] = 26;
+				iPosConteudo = 3;
+				int iPosFinal = sConteudo.length();
+				String sAux = "";
+				while (iPosConteudo < iPosFinal) {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("call")) {
+				mem[iMem++] = 27;
+				iPosConteudo = 4;
+				int iPosFinal = sConteudo.length();
+				String sAux = "";
+				while (iPosConteudo < iPosFinal) {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.equals("ret")) { // "ret"
+				mem[iMem++] = 28;
+			} else if (sConteudo.equals("inax")) { // "in ax"
+				mem[iMem++] = 29;
+			} else if (sConteudo.equals("outax")) { // "out ax"
+				mem[iMem++] = 30;
+			} else if (sConteudo.equals("pushax")) { // "push ax"
+				mem[iMem++] = 31;
+			} else if (sConteudo.equals("pushbx")) { // "push bx"
+				mem[iMem++] = 32;
+			} else if (sConteudo.equals("pushcx")) { // "push cx"
+				mem[iMem++] = 33;
+			} else if (sConteudo.equals("pushbp")) { // "push bp"
+				mem[iMem++] = 34;
+			} else if (sConteudo.equals("popbp")) { // "pop bp"
+				mem[iMem++] = 35;
+			} else if (sConteudo.equals("popcx")) { // "pop cx"
+				mem[iMem++] = 36;
+			} else if (sConteudo.equals("popbx")) { // "pop bx"
+				mem[iMem++] = 37;
+			} else if (sConteudo.equals("popax")) { // "pop ax"
+				mem[iMem++] = 38;
+			} else if (sConteudo.equals("nop")) { // "nop"
+				mem[iMem++] = 39;
+			} else if (sConteudo.equals("halt")) { // "halt"
+				mem[iMem++] = 40;
+			} else if (sConteudo.equals("decsp")) { // "dec sp"
+				mem[iMem++] = 41;
+			} else if (sConteudo.contains("move[bp-") && sConteudo.contains(",ax")) { // "move
+																						// [bp-"
+				mem[iMem++] = 42;
+				iPosConteudo = 8;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("move[bp+") && sConteudo.contains(",ax")) {
+				mem[iMem++] = 43;
+				iPosConteudo = 8;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != ']') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.contains("moveax,{")) {
+				mem[iMem++] = 44;
+				iPosConteudo = 8;
+				String sAux = "";
+				while (sConteudo.charAt(iPosConteudo) != '}') {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = Short.parseShort(sAux);
+			} else if (sConteudo.contains("testaxEqbx,")) {
+				mem[iMem++] = 45;
+				iPosConteudo = 11;
+				int iPosFinal = sConteudo.length();
+				String sAux = "";
+				while (iPosConteudo < iPosFinal) {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+			} else if (sConteudo.equals("incsp")) { // "inc sp"
+				mem[iMem++] = 46;
+			} else if (sConteudo.equals("moveax,sp")) { // "move ax,sp"
+				mem[iMem++] = 47;
+			} else if (sConteudo.equals("movesp,ax")) { // "move sp,ax"
+				mem[iMem++] = 48;
+			} else if (sConteudo.equals("moveax,bp")) { // "move ax,bp"
+				mem[iMem++] = 49;
+			} else if (sConteudo.equals("movebp,ax")) { // "move bp,ax"
+				mem[iMem++] = 50;
+			} else if (sConteudo.equals("iret")) { // "iret"
+				mem[iMem++] = 51;
+			} else if (sConteudo.contains("int")) {
+				mem[iMem++] = 52;
+				iPosConteudo = 3;
+				int iPosfinal = sConteudo.length();
+				String sAux = "";
+				while (iPosConteudo < iPosfinal) {
+					sAux += sConteudo.charAt(iPosConteudo++);
+				}
+				mem[iMem++] = Short.parseShort(sAux);
+			} else if (sConteudo.equals("subbx,ax")) {
+				mem[iMem++] = 53;
+			} 
+			else if (sConteudo.contains("sint")){
+				String values[] = sConteudo.split(" ");
+				int adddress = Integer.parseInt(values[1]);
+				tela.appendLog(ip+" - Executou sint");
+            	while(graphics.getCurrentMode() == GraphicMode.READ_MODE) { //wait while the display is reading data
+            		
+            	}
+            	short[] data = new short[56];
+            	
+            	int count = 0;
+            	
+            	for(int i = 200; i < 256; i++) {
+            		data[count] = mem[i];
+            	}
+            	
+            	graphics.setDataStartinOnAddress(adddress, data);
+            	
+			}else {
+				JOptionPane.showMessageDialog(null, "Instrução inválida, será finalizada a ação.");
+				tela.setEdtLinhaExecucao("Instrução inválida.");
+				tela.setTextLog("Encontrou uma instrução inválida e parou.\n  ---> " + sConteudo);
+				tela.setTextSaida("Ax = " + ax);
+				tela.bProgramaInvalido = true;
+				break;
+			}
+		}
+	}
+
+	private static void AvisoLimiteArray() {
+		MainMVM main = new MainMVM();
+		main.bLimiteArray = true;
+		JOptionPane.showMessageDialog(null, "Limite do array atingido, será finalizada a ação.");
+	}
 }
