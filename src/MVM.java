@@ -17,8 +17,8 @@ public class MVM {
 
 	private static TelaExecucao tela;
 	public static int botao = 0;
-	static int ax = 0, bx = 0, cx = 0, bp = 0, sp = 0, ip, ri;
-	static int iPosicaoInstrucoes = 0; // para pegar do arraylist a instruçao
+	static int ax = 0, bx = 0, cx = 0, bp = 0, sp = 0, al=0, ip, ri;
+	static int iPosicaoInstrucoes = 0; // para pegar do arraylist a instruÃ§ao
 										// que esta sendo executada
 
 	public static Graphics graphics;
@@ -31,6 +31,7 @@ public class MVM {
 
 	public static void zeraRegs() {
 		ax = 0;
+		al = 0;
 		bx = 0;
 		cx = 0;
 		bp = 0;
@@ -49,7 +50,7 @@ public class MVM {
             
             System.out.println("Valor de IP: " + ip);
             if(iPosicaoInstrucoes >= arrayInstrucoes.size()){ //termina o programa se chegou na ultima instrucao e nao encontrou halt, nao ocorre no Step
-                JOptionPane.showMessageDialog(null, "O programa não possui 'halt' para terminar.\nExecução finalizada");
+                JOptionPane.showMessageDialog(null, "O programa nÃ£o possui 'halt' para terminar.\nExecuÃ§Ã£o finalizada");
                 repetir = false;
             }
             else
@@ -78,7 +79,7 @@ public class MVM {
 
                     ip = mem[0];
                     botao = 0;
-                    tela.appendLog("EXECUTOU INTERRUPÇAO: INT3");
+                    tela.appendLog("EXECUTOU INTERRUPÃ‡AO: INT3");
                     System.out.println("EXECUTOU INTERRUPCAO: INT3");
             }
 
@@ -131,7 +132,10 @@ public class MVM {
                     break;
 
                 case 8://"move ax,[bp+"
-                    ax = mem[bp+mem[ip+1]];
+                    if ( mem[ip+1] > 255 ) {
+                    	
+                    }
+                	ax = mem[bp+mem[ip+1]];
                     tela.appendLog("Executou move ax, [bp+" + mem[ip+1]+ "].");
                     System.out.println("Executou move ax, [bp+" + mem[ip+1]+ "].");
                     ip++;
@@ -455,23 +459,6 @@ public class MVM {
                     tela.appendLog(ip+" - Executou sub bx,ax");
                     bx = bx - ax;
                     break;
-                case 54: //sint software interruption
-                	tela.appendLog(ip+" - Executou sint");
-                	while(graphics.getCurrentMode() == GraphicMode.READ_MODE) { //wait while the display is reading data
-                		
-                	}
-                	short[] data = new short[56];
-                	
-                	int count = 0;
-                	
-                	for(int i = 200; i < 256; i++) {
-                		data[count] = mem[i];
-                	}
-                	
-                	graphics.setDataStartinOnAddress(sp, data);
-                	
-                	
-                	break;
                 default: {
                     repetir = false;
                     tela.appendLog("Saiu.");
@@ -740,28 +727,10 @@ public class MVM {
 				mem[iMem++] = Short.parseShort(sAux);
 			} else if (sConteudo.equals("subbx,ax")) {
 				mem[iMem++] = 53;
-			} 
-			else if (sConteudo.contains("sint")){
-				String values[] = sConteudo.split(" ");
-				int adddress = Integer.parseInt(values[1]);
-				tela.appendLog(ip+" - Executou sint");
-            	while(graphics.getCurrentMode() == GraphicMode.READ_MODE) { //wait while the display is reading data
-            		
-            	}
-            	short[] data = new short[56];
-            	
-            	int count = 0;
-            	
-            	for(int i = 200; i < 256; i++) {
-            		data[count] = mem[i];
-            	}
-            	
-            	graphics.setDataStartinOnAddress(adddress, data);
-            	
 			}else {
-				JOptionPane.showMessageDialog(null, "Instrução inválida, será finalizada a ação.");
-				tela.setEdtLinhaExecucao("Instrução inválida.");
-				tela.setTextLog("Encontrou uma instrução inválida e parou.\n  ---> " + sConteudo);
+				JOptionPane.showMessageDialog(null, "InstruÃ§Ã£o invÃ¡lida, serÃ¡ finalizada a aÃ§Ã£o.");
+				tela.setEdtLinhaExecucao("InstruÃ§Ã£o invÃ¡lida.");
+				tela.setTextLog("Encontrou uma instruÃ§Ã£o invÃ¡lida e parou.\n  ---> " + sConteudo);
 				tela.setTextSaida("Ax = " + ax);
 				tela.bProgramaInvalido = true;
 				break;
@@ -772,6 +741,6 @@ public class MVM {
 	private static void AvisoLimiteArray() {
 		MainMVM main = new MainMVM();
 		main.bLimiteArray = true;
-		JOptionPane.showMessageDialog(null, "Limite do array atingido, será finalizada a ação.");
+		JOptionPane.showMessageDialog(null, "Limite do array atingido, serÃ¡ finalizada a aÃ§Ã£o.");
 	}
 }
