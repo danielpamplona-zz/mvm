@@ -735,7 +735,6 @@ public class MVM {
 				mem[iMem++] = Short.MAX_VALUE;
 				System.out.println("do nothing");
 			}else {
-				System.out.println(sConteudo);
 				JOptionPane.showMessageDialog(null, "InstruÃ§Ã£o invÃ¡lida, serÃ¡ finalizada a aÃ§Ã£o.");
 				tela.setEdtLinhaExecucao("InstruÃ§Ã£o invÃ¡lida.");
 				tela.setTextLog("Encontrou uma instruÃ§Ã£o invÃ¡lida e parou.\n  ---> " + sConteudo);
