@@ -515,7 +515,7 @@ public class MVM {
 		String sConteudo = "";
 		short iMem = shPosicao;
 		int iPosConteudo = 0;
-
+		boolean twoByte = false;
 		for (String sInstrucao : arrayInstrucoes) {
 			// System.out.println(iMem);
 			if (iMem + 2 >= mem.length) {
@@ -541,7 +541,7 @@ public class MVM {
 			} else if (sConteudo.equals("movecx,ax")) {// "move cx,ax"
 				mem[iMem++] = 4;
 			} else if (sConteudo.contains("moveax,[") && !sConteudo.contains("moveax,[b")) {// "move
-																							// ax,[",
+				twoByte = true;																// ax,[",
 				mem[iMem++] = 5;
 				iPosConteudo = 8;
 				String sAux = "";
@@ -550,6 +550,7 @@ public class MVM {
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("moveax,[bx+")) {
+				twoByte = true;
 				mem[iMem++] = 6;
 				iPosConteudo = 10;
 				String sAux = "";
@@ -558,6 +559,7 @@ public class MVM {
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("moveax,[bp-")) {
+				twoByte = true;
 				mem[iMem++] = 7;
 				iPosConteudo = 11;
 				String sAux = "";
@@ -619,6 +621,7 @@ public class MVM {
 			} else if (sConteudo.equals("deccx")) { // "dec cx"
 				mem[iMem++] = 24;
 			} else if (sConteudo.contains("testax0,")) {
+				twoByte = true;
 				mem[iMem++] = 25;
 				iPosConteudo = 8;
 				int iPosFinal = sConteudo.length();
@@ -629,6 +632,7 @@ public class MVM {
 				System.out.println("AUX "+Short.parseShort(sAux));
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("jmp")) {
+				twoByte = true;
 				mem[iMem++] = 26;
 				iPosConteudo = 3;
 				int iPosFinal = sConteudo.length();
@@ -638,6 +642,7 @@ public class MVM {
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("call")) {
+				twoByte = true;
 				mem[iMem++] = 27;
 				iPosConteudo = 4;
 				int iPosFinal = sConteudo.length();
@@ -675,7 +680,7 @@ public class MVM {
 			} else if (sConteudo.equals("decsp")) { // "dec sp"
 				mem[iMem++] = 41;
 			} else if (sConteudo.contains("move[bp-") && sConteudo.contains(",ax")) { // "move
-																						// [bp-"
+				twoByte =true;// [bp-"
 				mem[iMem++] = 42;
 				iPosConteudo = 8;
 				String sAux = "";
@@ -684,6 +689,7 @@ public class MVM {
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("move[bp+") && sConteudo.contains(",ax")) {
+				twoByte = true;
 				mem[iMem++] = 43;
 				iPosConteudo = 8;
 				String sAux = "";
@@ -692,6 +698,7 @@ public class MVM {
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("moveax,{")) {
+				twoByte = true;
 				mem[iMem++] = 44;
 				iPosConteudo = 8;
 				String sAux = "";
@@ -700,6 +707,7 @@ public class MVM {
 				}
 				mem[iMem++] = Short.parseShort(sAux);
 			} else if (sConteudo.contains("testaxEqbx,")) {
+				twoByte = true;
 				mem[iMem++] = 45;
 				iPosConteudo = 11;
 				int iPosFinal = sConteudo.length();
@@ -721,6 +729,7 @@ public class MVM {
 			} else if (sConteudo.equals("iret")) { // "iret"
 				mem[iMem++] = 51;
 			} else if (sConteudo.contains("int")) {
+				twoByte = true;
 				mem[iMem++] = 52;
 				iPosConteudo = 3;
 				int iPosfinal = sConteudo.length();
@@ -732,7 +741,14 @@ public class MVM {
 			} else if (sConteudo.equals("subbx,ax")) {
 				mem[iMem++] = 53;
 			} else if(sConteudo.equals("")) {
-				mem[iMem++] = Short.MAX_VALUE;
+				if (!twoByte) {
+					mem[iMem++] = Short.MAX_VALUE;
+				}
+				else {
+					twoByte = false;
+				}
+				
+				
 				System.out.println("do nothing");
 			}else {
 				JOptionPane.showMessageDialog(null, "InstruÃ§Ã£o invÃ¡lida, serÃ¡ finalizada a aÃ§Ã£o.");
