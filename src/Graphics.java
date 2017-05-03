@@ -18,6 +18,10 @@ public class Graphics {
 		return currentMode;
 	}
 	
+	/**
+	 * defines current graphic mode if read or write
+	 * @param currentMode
+	 */
 	public void setCurrentMode(GraphicMode currentMode) {
 		this.currentMode = currentMode;
 	}

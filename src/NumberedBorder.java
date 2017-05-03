@@ -50,7 +50,7 @@ class NumberedBorder extends AbstractBorder {
 		int visibleLines = textArea.getHeight() / lineHeight;
 		for (int i = 0; i < visibleLines; i++) {
 
-			str = String.valueOf(i + 1);
+			str = String.valueOf(i);
 			lenght = str.length();
 
 			py = lineHeight * i + 14;

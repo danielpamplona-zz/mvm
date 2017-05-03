@@ -239,9 +239,7 @@ public class TelaCarregamento extends javax.swing.JFrame {
         arrayInstrucoes.clear();
         String[] codigosLinha = textArea1.getText().split("\n");
         for (String codigoLinha : codigosLinha) {
-            if (!codigoLinha.equals("")) {
-                arrayInstrucoes.add(codigoLinha);
-            }
+        	arrayInstrucoes.add(codigoLinha);
         }
 
         if (arrayInstrucoes.size() > 0) {
