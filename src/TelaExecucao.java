@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -80,6 +81,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         textAreaStack = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        labelAcessosMemoria = new JLabel("Acessos memória: ");
         edtLinhaExecucao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -151,34 +153,64 @@ public class TelaExecucao extends javax.swing.JFrame {
 
         edtLinhaExecucao.setEditable(false);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        final javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup().addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane1).addComponent(jScrollPane2)
         .addGroup(layout.createSequentialGroup()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false).addComponent(scrollPaneCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup().addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE).addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGroup(layout.createSequentialGroup().addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+        .addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE).addComponent(labelAcessosMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 116,
+        javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
         .addGroup(layout.createSequentialGroup()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false).addGroup(layout.createSequentialGroup().addComponent(jLabel2).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtBX)).addGroup(layout.createSequentialGroup().addComponent(jLabel3).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtCX))
-        .addGroup(layout.createSequentialGroup().addComponent(jLabel4).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtSP)).addGroup(layout.createSequentialGroup().addComponent(jLabel1).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jLabel5).addComponent(jLabel6)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(edtIP).addComponent(edtBP)))).addComponent(jLabel7)).addGap(0, 0,
-        Short.MAX_VALUE)))).addGroup(layout.createSequentialGroup().addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        .addGroup(layout.createSequentialGroup().addComponent(jLabel2).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtBX))
+        .addGroup(layout.createSequentialGroup().addComponent(jLabel3).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtCX))
+        .addGroup(layout.createSequentialGroup().addComponent(jLabel4).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtSP))
+        .addGroup(layout.createSequentialGroup().addComponent(jLabel1).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE,
+        69, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jLabel5).addComponent(jLabel6))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(edtIP).addComponent(edtBP))))
+        .addComponent(jLabel7)).addGap(0, 0, Short.MAX_VALUE))))
+        .addGroup(layout.createSequentialGroup().addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap()));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup().addGap(12, 12, 12).addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(layout.createSequentialGroup().addGap(12, 12, 12)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun).addComponent(labelAcessosMemoria))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1).addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel2).addComponent(edtBX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel3).addComponent(edtCX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel4).addComponent(edtSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel5).addComponent(edtBP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel6).addComponent(edtIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jLabel7)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)).addComponent(scrollPaneCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)).addGap(8, 8, 8)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel8).addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
+        .addGroup(layout.createSequentialGroup()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1).addComponent(edtAX, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel2).addComponent(edtBX, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel3).addComponent(edtCX, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel4).addComponent(edtSP, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel5).addComponent(edtBP, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel6).addComponent(edtIP, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addComponent(jLabel7)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addComponent(scrollPaneCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(8, 8, 8)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel8).addComponent(edtLinhaExecucao, javax.swing.GroupLayout.PREFERRED_SIZE,
+        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -188,40 +220,42 @@ public class TelaExecucao extends javax.swing.JFrame {
         if (bPrimeiroStep) { // só chama o codificador na primeira chamada do botao, é zera o ip
             btnRun.setEnabled(false); // nao da Run enquanto estiver no Step
             LimpaCampos();
-            mvm.zeraRegs();
-            mvm.iPosicaoInstrucoes = 0; // para poder dar um run depois do step, para serem coisas separadas
+            MVM.zeraRegs();
+            MVM.iPosicaoInstrucoes = 0; // para poder dar um run depois do step, para serem coisas separadas
 
             String sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga:");
-            if (sPosicao == null || sPosicao.equals(""))
+            if (sPosicao == null || sPosicao.equals("")) {
                 return;
+            }
             while (VerificaEnderecoDeCarga(sPosicao) == false) {
                 JOptionPane.showMessageDialog(this, "Entrada de dados inválida");
                 sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);
-                if (sPosicao == null || sPosicao.equals(""))
+                if (sPosicao == null || sPosicao.equals("")) {
                     return;
+                }
             }
 
-            int iPosicao = Integer.parseInt(sPosicao);
-            if (iPosicao < 1025)
+            final int iPosicao = Integer.parseInt(sPosicao);
+            if (iPosicao < 1025) {
                 shPosicao = (short) iPosicao;
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Endereço de carga muito elevado.");
                 return;
             }
 
             try {
-                mvm.codificador(mem, shPosicao, arrayInstrucoesExecucao);
-            } catch (IOException ex) {
+                MVM.codificador(mem, shPosicao, arrayInstrucoesExecucao);
+            } catch (final IOException ex) {
                 Logger.getLogger(TelaExecucao.class.getName()).log(Level.SEVERE, null, ex);
             }
             bPrimeiroStep = false;
-            mvm.ip = 0;
+            MVM.ip = 0;
         }
 
-        if (!(mvm.iPosicaoInstrucoes >= arrayInstrucoesExecucao.size())) {
+        if (!(MVM.iPosicaoInstrucoes >= arrayInstrucoesExecucao.size())) {
             if (!bProgramaInvalido) {
                 bStop = true; // a MVM verifica essa variavel, se for true ela sai do codificador, mas salva as variaveis
-                mvm.decodificador(mem, 0, shPosicao, arrayInstrucoesExecucao);
+                MVM.decodificador(mem, 0, shPosicao, arrayInstrucoesExecucao);
             } else {
                 bPrimeiroStep = true;
                 btnRun.setEnabled(true);
@@ -230,57 +264,61 @@ public class TelaExecucao extends javax.swing.JFrame {
             LimpaCampos();
             btnRun.setEnabled(true);
             bPrimeiroStep = true;
-            mvm.zeraRegs();
+            MVM.zeraRegs();
         }
     }// GEN-LAST:event_btnStepActionPerformed
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnRunActionPerformed
         // TODO add your handling code here:
-        short[] memLocal = new short[1025];
+        final short[] memLocal = new short[1025];
         System.arraycopy(mem, 0, memLocal, 0, memLocal.length); // para nao alterar a mem principal, para poder rodar de novo
-        mvm.zeraRegs();
+        MVM.zeraRegs();
         LimpaCampos();
 
         short shPosicao = 0;
 
         String sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);
-        if (sPosicao == null || sPosicao.equals(""))
+        if (sPosicao == null || sPosicao.equals("")) {
             return;
+        }
         while (VerificaEnderecoDeCarga(sPosicao) == false) {
             JOptionPane.showMessageDialog(this, "Entrada de dados inválida");
             sPosicao = JOptionPane.showInputDialog(this, "Digite o endereço de carga.", null);
-            if (sPosicao == null || sPosicao.equals(""))
+            if (sPosicao == null || sPosicao.equals("")) {
                 return;
+            }
         }
 
-        int iPosicao = Integer.parseInt(sPosicao);
-        if (iPosicao < 1025)
+        final int iPosicao = Integer.parseInt(sPosicao);
+        if (iPosicao < 1025) {
             shPosicao = (short) iPosicao;
-        else {
+        } else {
             JOptionPane.showMessageDialog(this, "Endereço de carga muito elevado.");
             return;
         }
 
         try {
-            mvm.codificador(memLocal, shPosicao, arrayInstrucoesExecucao);
-        } catch (IOException ex) {
+            MVM.codificador(memLocal, shPosicao, arrayInstrucoesExecucao);
+        } catch (final IOException ex) {
             Logger.getLogger(TelaExecucao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (!bProgramaInvalido) {
             bStop = false;
-            mvm.decodificador(memLocal, 0, shPosicao, arrayInstrucoesExecucao);
+            MVM.decodificador(memLocal, 0, shPosicao, arrayInstrucoesExecucao);
         }
 
     }// GEN-LAST:event_btnRunActionPerformed
 
     private boolean VerificaEnderecoDeCarga(String sEntrada) {
-        if (sEntrada.length() > 4)
+        if (sEntrada.length() > 4) {
             return false;
+        }
 
         for (int i = 0; i < sEntrada.length(); i++) {
-            if (sEntrada.charAt(i) < '0' || sEntrada.charAt(i) > '9')
+            if (sEntrada.charAt(i) < '0' || sEntrada.charAt(i) > '9') {
                 return false;
+            }
         }
 
         return true;
@@ -305,6 +343,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         edtSP.setText("");
         edtBP.setText("");
         edtIP.setText("");
+        labelAcessosMemoria.setText("");
     }
 
     public void setaArray(ArrayList<String> arrayInstructions) {
@@ -315,11 +354,12 @@ public class TelaExecucao extends javax.swing.JFrame {
     }
 
     void preencheTextArea() {
-        for (String s : arrayInstrucoesExecucao) {
-            if (textAreaCodigo.getText().equals(""))
+        for (final String s : arrayInstrucoesExecucao) {
+            if (textAreaCodigo.getText().equals("")) {
                 textAreaCodigo.append(s);
-            else
+            } else {
                 textAreaCodigo.append("\n" + s);
+            }
         }
     }
 
@@ -339,13 +379,14 @@ public class TelaExecucao extends javax.swing.JFrame {
         textAreaLog.append(sLog + "\n");
     }
 
-    void setRegistradores(int ax, int bx, int cx, int sp, int bp, int ip) {
+    void setRegistradores(int ax, int bx, int cx, int sp, int bp, int ip, int acessos) {
         edtAX.setText(String.valueOf(ax));
         edtBX.setText(String.valueOf(bx));
         edtCX.setText(String.valueOf(cx));
         edtSP.setText(String.valueOf(sp));
         edtBP.setText(String.valueOf(bp));
         edtIP.setText(String.valueOf(ip));
+        labelAcessosMemoria.setText("Acessos memória: " + acessos);
     }
 
     /**
@@ -359,19 +400,19 @@ public class TelaExecucao extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (final javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (final ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TelaExecucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (final InstantiationException ex) {
             java.util.logging.Logger.getLogger(TelaExecucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (final IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(TelaExecucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (final javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaExecucao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         // </editor-fold>
@@ -403,6 +444,7 @@ public class TelaExecucao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel labelAcessosMemoria;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
