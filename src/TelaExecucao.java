@@ -81,7 +81,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         textAreaStack = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
-        labelAcessosMemoria = new JLabel("Acessos memória: ");
+        labelAcessosMemoria = new JLabel("am: ");
         edtLinhaExecucao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -163,7 +163,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         .addGroup(layout.createSequentialGroup().addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
         .addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE).addComponent(labelAcessosMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 116,
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE).addComponent(labelAcessosMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 116,
         javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
@@ -386,7 +386,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         edtSP.setText(String.valueOf(sp));
         edtBP.setText(String.valueOf(bp));
         edtIP.setText(String.valueOf(ip));
-        labelAcessosMemoria.setText("Acessos memória: " + acessos);
+        labelAcessosMemoria.setText("Am " + acessos);
     }
 
     /**
