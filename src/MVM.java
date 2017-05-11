@@ -684,6 +684,7 @@ public class MVM {
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
 			} else if (sConteudo.contains("move[") && sConteudo.contains("],ax") && !sConteudo.contains("bx")
 					&& !sConteudo.contains("bp")) {
+				twoByte = true;
 				mem[iMem++] = 9;
 				iPosConteudo = 5;
 				String sAux = "";
