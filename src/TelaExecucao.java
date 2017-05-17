@@ -61,6 +61,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         textAreaCodigo = new javax.swing.JTextArea();
         btnStep = new javax.swing.JButton();
         btnRun = new javax.swing.JButton();
+        btnShowMonitor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaSaida = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -98,12 +99,20 @@ public class TelaExecucao extends javax.swing.JFrame {
                 btnStepActionPerformed(evt);
             }
         });
-
         btnRun.setText("Run");
         btnRun.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRunActionPerformed(evt);
+            }
+        });
+
+        btnShowMonitor.setText("Exibir Monitor");
+        btnShowMonitor.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monitor = new Monitor();
             }
         });
 
@@ -163,6 +172,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         .addGroup(layout.createSequentialGroup().addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
         .addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(btnShowMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE).addComponent(labelAcessosMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 116,
         javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -183,7 +193,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         .addContainerGap()));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup().addGap(12, 12, 12)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun).addComponent(labelAcessosMemoria))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun).addComponent(btnShowMonitor).addComponent(labelAcessosMemoria))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
@@ -328,6 +338,11 @@ public class TelaExecucao extends javax.swing.JFrame {
         textAreaStack.append(sp + " - " + shMem + "\n");
     }
 
+    public void escreverMonitor(int row, int col, char c) {
+        monitor.out(row, col, c);
+        monitor.repaint();
+    }
+
     public void LimpaPilha() {
         textAreaStack.setText("");
     }
@@ -429,6 +444,8 @@ public class TelaExecucao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRun;
     private javax.swing.JButton btnStep;
+    private javax.swing.JButton btnShowMonitor;
+    private Monitor monitor;
     private javax.swing.JTextField edtAX;
     private javax.swing.JTextField edtBP;
     private javax.swing.JTextField edtBX;
