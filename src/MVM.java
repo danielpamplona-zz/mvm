@@ -564,6 +564,15 @@ public class MVM {
 				bx = bx - ax;
 				nrAcessosMemoria++;
 				break;
+			case 54:
+				mem[mem[ip + 1]] = (short) bx;
+				tela.appendLog("Executou move [" + mem[ip + 1] + "],bx.");
+				System.out.println("Executou move [" + mem[ip + 1] + "],bx.");
+				ip++;
+				nrAcessosMemoria++;
+				nrAcessosMemoria++;
+				nrAcessosMemoria++;
+				break; 
 			case Short.MAX_VALUE:
 				ip++;
 				break;
@@ -682,17 +691,27 @@ public class MVM {
 					sAux += sConteudo.charAt(iPosConteudo++);
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-			} else if (sConteudo.contains("move[") && sConteudo.contains("],ax") && !sConteudo.contains("bx")
+			} else if (sConteudo.contains("move[") && sConteudo.contains("],bx") && !sConteudo.contains("ax")
 					&& !sConteudo.contains("bp")) {
 				twoByte = true;
-				mem[iMem++] = 9;
+				mem[iMem++] = 54;
 				iPosConteudo = 5;
 				String sAux = "";
 				while (sConteudo.charAt(iPosConteudo) != ']') {
 					sAux += sConteudo.charAt(iPosConteudo++);
 				}
 				mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
-			} else if (sConteudo.contains("move[bx+") && sConteudo.contains(",ax")) {
+			} else if (sConteudo.contains("move[") && sConteudo.contains("],ax") && !sConteudo.contains("bx")
+				&& !sConteudo.contains("bp")) {
+			twoByte = true;
+			mem[iMem++] = 9;
+			iPosConteudo = 5;
+			String sAux = "";
+			while (sConteudo.charAt(iPosConteudo) != ']') {
+				sAux += sConteudo.charAt(iPosConteudo++);
+			}
+			mem[iMem++] = (short) (Short.parseShort(sAux) + shPosicao);
+		}else if (sConteudo.contains("move[bx+") && sConteudo.contains(",ax")) {
 				mem[iMem++] = 10;
 				iPosConteudo = 8;
 				String sAux = "";
