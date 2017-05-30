@@ -24,6 +24,8 @@ public class MVM {
 
     public static Graphics graphics;
     static int iValorInicialPilha = -1;
+    private static int row;
+    private static int col;
 
     public MVM(TelaExecucao telaExecucao) {
         tela = telaExecucao;
@@ -321,6 +323,11 @@ public class MVM {
 
             case 30:// "out ax"
                 System.out.println("Saida: AX=" + ax);
+                tela.escreverMonitor(row, col++, (char) ax);
+                if (col == 10) {
+                    col = 0;
+                    row++;
+                }
                 nrAcessosMemoria++;
                 break;
 

@@ -20,8 +20,8 @@ public class Monitor {
         initTela();
     }
 
-    public static void main(String[] args) {
-        new Monitor();
+    public void enable() {
+        frame.setVisible(true);
     }
 
     public void out(int row, int col, char c) {
@@ -45,7 +45,6 @@ public class Monitor {
         frame.getContentPane().add(painelPrincipal, BorderLayout.CENTER);
         frame.setMinimumSize(new Dimension(500, 350));
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
     }
 
     class TableModel extends DefaultTableModel {

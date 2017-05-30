@@ -112,7 +112,7 @@ public class TelaExecucao extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                monitor = new Monitor();
+                monitor.enable();
             }
         });
 
@@ -445,7 +445,7 @@ public class TelaExecucao extends javax.swing.JFrame {
     private javax.swing.JButton btnRun;
     private javax.swing.JButton btnStep;
     private javax.swing.JButton btnShowMonitor;
-    private Monitor monitor;
+    private final Monitor monitor = new Monitor();
     private javax.swing.JTextField edtAX;
     private javax.swing.JTextField edtBP;
     private javax.swing.JTextField edtBX;
