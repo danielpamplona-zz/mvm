@@ -1,0 +1,258 @@
+jmp 10
+
+204
+219
+234
+249
+0
+
+
+
+move ax, {19}
+
+move [0], ax
+
+move ax, [5]
+
+move sp, ax
+iret
+
+init ax
+move cx, ax
+move ax,[6]
+
+move bx,ax
+move ax,{0}
+
+test axEqbx,30
+
+jmp 39
+
+move cx,ax
+move ax,[2]
+
+move sp,ax
+inc cx
+move ax,cx
+move [6], ax
+
+iret
+move ax,{1}
+
+test axEqbx,45
+
+jmp 54
+
+move cx,ax
+move ax,[3]
+
+move sp,ax
+inc cx
+move ax,cx
+move [6], ax
+
+iret
+init ax
+move [6],ax
+
+move ax,[4]
+
+move sp, ax
+iret
+
+
+
+
+
+
+
+
+
+jmp 70
+
+
+
+jmp 74
+
+
+
+jmp 78
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+70
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+74
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+78
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19
+
+
+

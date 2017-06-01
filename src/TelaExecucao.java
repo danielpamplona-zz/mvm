@@ -61,6 +61,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         textAreaCodigo = new javax.swing.JTextArea();
         btnStep = new javax.swing.JButton();
         btnRun = new javax.swing.JButton();
+        btnInt = new javax.swing.JButton();
         btnShowMonitor = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaSaida = new javax.swing.JTextArea();
@@ -104,6 +105,14 @@ public class TelaExecucao extends javax.swing.JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRunActionPerformed(evt);
+            }
+        });
+        
+        btnInt.setText("Interrupt");
+        btnInt.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIntActionPerformed(evt);
             }
         });
 
@@ -172,6 +181,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         .addGroup(layout.createSequentialGroup().addComponent(btnStep, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
         .addComponent(btnRun, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(btnInt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addComponent(btnShowMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE).addComponent(labelAcessosMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 116,
         javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -193,7 +203,7 @@ public class TelaExecucao extends javax.swing.JFrame {
         .addContainerGap()));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup().addGap(12, 12, 12)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun).addComponent(btnShowMonitor).addComponent(labelAcessosMemoria))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnStep).addComponent(btnRun).addComponent(btnInt).addComponent(btnShowMonitor).addComponent(labelAcessosMemoria))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
@@ -224,7 +234,9 @@ public class TelaExecucao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void btnIntActionPerformed(java.awt.event.ActionEvent evt) {
+    	MVM.botao = 1;
+    }
     private void btnStepActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnStepActionPerformed
         short shPosicao = 0;
         if (bPrimeiroStep) { // só chama o codificador na primeira chamada do botao, é zera o ip
@@ -443,6 +455,7 @@ public class TelaExecucao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRun;
+    private javax.swing.JButton btnInt;
     private javax.swing.JButton btnStep;
     private javax.swing.JButton btnShowMonitor;
     private final Monitor monitor = new Monitor();

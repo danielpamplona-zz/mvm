@@ -579,9 +579,9 @@ public class MVM {
                 nrAcessosMemoria++;
                 nrAcessosMemoria++;
                 break;
-            case Short.MAX_VALUE:
-                ip++;
-                break;
+            //case Short.MAX_VALUE:
+              //  ip++;
+               // break;
             default: {
                 repetir = false;
                 tela.appendLog("Saiu.");
@@ -872,13 +872,18 @@ public class MVM {
                 mem[iMem++] = 53;
             } else if (sConteudo.equals("")) {
                 if (!twoByte) {
-                    mem[iMem++] = Short.MAX_VALUE;
+                    mem[iMem++] = 0;
                 } else {
                     twoByte = false;
                 }
 
                 System.out.println("do nothing");
-            } else {
+                
+            } 
+            else if(isInteger(sConteudo)) {
+            	mem[iMem++] = Short.parseShort(sConteudo);
+            }
+            else {
                 JOptionPane.showMessageDialog(null, "InstruÃ§Ã£o invÃ¡lida, serÃ¡ finalizada a aÃ§Ã£o.");
                 tela.setEdtLinhaExecucao("InstruÃ§Ã£o invÃ¡lida.");
                 tela.setTextLog("Encontrou uma instruÃ§Ã£o invÃ¡lida e parou.\n  ---> " + sConteudo);
@@ -890,6 +895,18 @@ public class MVM {
         for (int i = 0; i < mem.length; i++) {
             System.out.println("ENDERECO: " + i + " VALOR: " + mem[i]);
         }
+    }
+    
+    public static boolean isInteger(String s) {
+    	try { 
+            Integer.parseInt(s); 
+        } catch(NumberFormatException e) { 
+            return false; 
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
     }
 
     private static void AvisoLimiteArray() {

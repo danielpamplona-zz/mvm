@@ -1,0 +1,167 @@
+jmp 35
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+push ax
+move ax, {5}
+
+out ax
+pop ax
+out ax
+iret 
+
+
+
+init ax 
+move ax,{20}
+
+move sp, ax
+move ax, {25}
+
+move [2], ax
+
+move ax, {79}
+
+int 2
+
+move ax, {76}
+
+int 2
+
+move ax, {65}
+
+int 2
+
+halt
+
+
+
+________________________________________
+jmp 55
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+push bx
+push cx
+push ax
+move ax,[3]
+
+move bx,ax
+move ax,[4]
+
+move cx,ax
+pop ax
+out ax
+inc cx
+move ax,{8}
+
+sub ax,cx
+test ax0,44
+
+move ax,cx
+move [4],ax
+
+jmp 50
+
+inc bx
+move [3],bx
+
+init ax
+move [4],ax
+
+pop cx
+pop bx
+iret
+
+
+init ax
+move ax,{20}
+
+move sp, ax
+move ax,{22}
+
+move [2], ax
+
+init ax
+move [3],ax
+
+move [4],ax
+
+
+
+move ax, {79}
+
+int 2
+
+move ax,{76}
+
+int 2
+
+move ax, {65}
+
+int 2
+
+halt
+____________________
+
+
+jmp 9
+
+
+
+
+
+
+
+
+move ax,{8}
+
+move sp,ax
+move ax,{19}
+
+move [2], ax
+
+int 2
+
+halt
+nop
+iret
